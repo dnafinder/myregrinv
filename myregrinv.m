@@ -79,18 +79,16 @@ end
 assert(length(xc)==length(yt),'Xc and Yc must have the same numbers of columns.');
 
 %regression coefficients
-try
-    [m,q,stat] = myregr(xc,yc,verbose);
-catch ME %#ok<NASGU>
+if exist('myregr.m','file')==0
     filename=unzip('https://it.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/15473/versions/10/download/zip','prova');
     Index = contains(filename,'myregr.m');
     current=cd;
     copyfile(filename{Index},current)
     rmdir('prova','s')
     clear filename Index current 
-    [m,q,stat] = myregr(xc,yc,verbose);
 end
 
+[m,q,stat] = myregr(xc,yc,verbose);
 quality=((stat.cv*stat.rse/m.value)^2)/stat.sse;
 disp(' ')
 if quality>=0.1
