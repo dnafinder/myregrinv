@@ -71,12 +71,6 @@ addOptional(p,'verbose',1, @(x) isnumeric(x) && isreal(x) && isfinite(x) && issc
 parse(p,xc,yc,yo,varargin{:});
 verbose=p.Results.verbose; 
 clear p
-if isvector(yc)
-    yt=yc(:); %columns vectors
-else
-    yt=mean(yc,2);
-end
-assert(length(xc)==length(yt),'Xc and Yc must have the same numbers of columns.');
 
 %regression coefficients
 if exist('myregr.m','file')==0
