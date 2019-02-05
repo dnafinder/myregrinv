@@ -73,14 +73,7 @@ verbose=p.Results.verbose;
 clear p
 
 %regression coefficients
-if exist('myregr.m','file')==0
-    filename=unzip('https://it.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/15473/versions/10/download/zip','prova');
-    Index = contains(filename,'myregr.m');
-    current=cd;
-    copyfile(filename{Index},current)
-    rmdir('prova','s')
-    clear filename Index current 
-end
+assert(exist('myregr.m','file')~=0,'You must download myregr function from https://it.mathworks.com/matlabcentral/fileexchange/15473-myregression')
 
 [m,q,stat] = myregr(xc,yc,verbose);
 quality=((stat.cv*stat.rse/m.value)^2)/stat.sse;
